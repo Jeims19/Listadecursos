@@ -15,12 +15,58 @@
             
             String s_accion;
             String s_ideestudiante;
+            String s_nombre;
+            String s_apellido;
+            String s_dni;
+            String s_codigo;
+            String s_estado;
         
         %>
         
     </head>
     <body>
-        <table border="1" cellpading="0">
+        <form name="agregarForm" action="presenta.jsp" method="get">
+        
+        <table border="0" align="center">
+            <thead>
+                <tr align="center">
+                    <th colspan="2">Agregar Nuevo Estudiante</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nombre: </td>
+                    <td><input type="text" name="f_nombre" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Apellido: </td>
+                    <td><input type="text" name="f_apellido" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Dni: </td>
+                    <td><input type="text" name="f_dni" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Codigo: </td>
+                    <td><input type="text" name="f_codigo" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Estado: </td>
+                    <td><input type="text" name="f_estado" value="" /></td>
+                </tr>
+                <tr align="center">
+                    <td colspan="2"><input type="submit" value="Agregar" /></td>
+                    <input type="hidden" name="f_accion" value="C"/>
+                </tr>
+            </tbody>
+        </table>
+
+        </form>
+        
+        <br><br>
+        
+        <table border="1" cellpading="0" align="center">
             <thead>
                 <th>IDE</th>
                 <th>NOMBRE</th>
@@ -47,6 +93,21 @@
                                 + " Where "
                                 + " idestudiante = " +s_ideestudiante+ "";
                         //out.print(consulta);
+                        pst = cn.prepareStatement(consulta);
+                        pst.executeUpdate();
+                    }else if(s_accion.equals("C")){
+                       
+                        s_nombre= request.getParameter("f_nombre");
+                        s_apellido= request.getParameter("f_apellido");
+                        s_dni= request.getParameter("f_dni");
+                        s_codigo= request.getParameter("f_codigo");
+                        s_estado= request.getParameter("f_estado");
+                        
+                        consulta = "insert into "
+                                + "estudiante (nombre, apellido, dni, codigo, estado) "
+                                + "values ('" +s_nombre+ "','"+s_apellido+"','"+s_dni+"','"+s_codigo+"','"+s_estado+"' )";
+                                
+                        out.print(consulta);
                         pst = cn.prepareStatement(consulta);
                         pst.executeUpdate();
                     }
